@@ -562,9 +562,14 @@
                 
                 // GIỮ NGUYÊN VÒNG LẶP GENERATE GỐC CỦA BẠN (Mỗi 300ms sinh ra 4 khối rơi đồng thời)
                 setInterval(() => {
-                    for (let i = 0; i < 4; i++) {
-                        createTextParticle();
-                        if (Math.random() < 0.5) createImageParticle();
+                  // Tự động kiểm tra nếu màn hình nhỏ (dưới 768px - thường là điện thoại) 
+                  // thì chỉ sinh 1 hạt mỗi lượt, còn màn hình lớn (máy tính) thì sinh 4 hạt như cũ
+                  const isMobile = window.innerWidth < 768;
+                  const spawnCount = isMobile ? 1 : 4;
+
+                  for (let i = 0; i < spawnCount; i++) {
+                      createTextParticle();
+                      if (Math.random() < 0.5) createImageParticle();
                     }
                 }, 300);
 
